@@ -1,7 +1,8 @@
 # Workforce-to-Privilege Identity Flow
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](./LICENSE)
-[![Status: v0.1-shipped](https://img.shields.io/badge/Status-v0.1--shipped-yellow.svg)](#status)
+[![CI](https://github.com/mizcausevic-dev/workforce-privilege-identity-flow/actions/workflows/ci.yml/badge.svg)](https://github.com/mizcausevic-dev/workforce-privilege-identity-flow/actions/workflows/ci.yml)
+[![Status: v1.0-prod](https://img.shields.io/badge/Status-v1.0--prod-brightgreen.svg)](#status)
 [![Static · No backend · No telemetry](https://img.shields.io/badge/Static-No%20backend%20%C2%B7%20No%20telemetry-green.svg)](#static-only)
 
 Operator surface for HRIS-to-IdP joiner / mover / leaver pipelines, SCIM sync health, orphan-account detection, and entitlement-grant recertification.
@@ -30,7 +31,7 @@ The page is pre-loaded with synthetic data modeled on **MomentumHR Inc. (8,400-e
 
 ## Status
 
-`v0.1-shipped` — MVP scaffold. Hardening to `v1.0-prod` is a separate squad-discipline pass (CI green, screenshot suite, fixtures dir, scripts/, .release-notes.md).
+`v1.0-prod` — hardened 2026-06-02. CI green on Node 20+22, 15 structure + data-integrity tests passing, HTML5-validated, security headers verified in .htaccess. See `.release-notes.md`.
 
 ## Static only
 
