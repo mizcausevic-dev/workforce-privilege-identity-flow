@@ -4,7 +4,7 @@
 //   - 4 tabs (overview · anomalies · sync · audit) wired both ways
 //   - 4 stat tiles with values matching the synthetic data
 //   - 6 anomaly cards (one per detected pattern)
-//   - 8 audit-chain events (hash-chained)
+//   - 8 illustrative audit rows, explicitly not signed evidence
 //   - Security headers in .htaccess
 //   - AGPL-3.0 license file
 //   - favicon.svg present + CSP-safe shape
@@ -27,8 +27,8 @@ test("HTML5 doctype + lang + title", () => {
 });
 
 test("4 tab buttons + 4 tab panels (wired both ways)", () => {
-  const btns = (html.match(/<button class="tab-btn[^"]*"\s+data-tab="([^"]+)"/g) || []);
-  const panels = (html.match(/<section class="tab-panel[^"]*"\s+data-panel="([^"]+)"/g) || []);
+  const btns = (html.match(/<button\b[^>]*class="tab-btn[^"]*"[^>]*data-tab="([^"]+)"/g) || []);
+  const panels = (html.match(/<section\b[^>]*class="tab-panel[^"]*"[^>]*data-panel="([^"]+)"/g) || []);
   assert.equal(btns.length, 4, "Expected exactly 4 tab buttons");
   assert.equal(panels.length, 4, "Expected exactly 4 tab panels");
   // Expected panel IDs (order-agnostic)
@@ -64,9 +64,19 @@ test("First audit event kind present (data-integrity proxy)", () => {
   assert.ok(html.includes("workforce.event.terminate"), "First audit event kind missing from rendered HTML");
 });
 
-test("Audit chain banner mentions ed25519 + hash-chained", () => {
-  assert.match(html, /ed25519/i);
-  assert.match(html, /hash-chain/i);
+test("Synthetic audit rows cannot be mistaken for signed evidence", () => {
+  assert.match(html, /not cryptographic proof/i);
+  assert.match(html, /no source systems or audit service feed this page/i);
+  assert.doesNotMatch(html, /ed25519-signed/i);
+});
+
+test("Tabs expose keyboard and panel relationships", () => {
+  for (const name of ["overview", "anomalies", "sync", "audit"]) {
+    assert.match(html, new RegExp(`id="tab-${name}"[^>]*aria-controls="panel-${name}"`));
+    assert.match(html, new RegExp(`id="panel-${name}"[^>]*role="tabpanel"[^>]*aria-labelledby="tab-${name}"`));
+    assert.match(html, new RegExp(`href="#panel-${name}" data-tab="${name}"`));
+  }
+  assert.match(html, /e\.key === 'ArrowRight'/);
 });
 
 test("Security headers present in .htaccess (response-header layer)", () => {

@@ -15,7 +15,7 @@ const checks = [
   ["4 stat tiles", ((html.match(/<span class="stat-num/g) || []).length) === 4],
   ["6 anomaly cards", ((html.match(/<div class="card-eyebrow">/g) || []).length) === 6],
   ["8 audit events", ((html.match(/<div class="audit-row">/g) || []).length) === 8],
-  ["ed25519 + hash-chained mentioned", /ed25519/i.test(html) && /hash-chain/i.test(html)],
+  ["audit rows labeled as illustrative", /not cryptographic proof/i.test(html) && /no source systems or audit service feed this page/i.test(html)],
   ["favicon.svg present", existsSync(new URL("favicon.svg", root))],
   ["CNAME = jml.kineticgain.com", readFileSync(new URL("CNAME", root), "utf8").trim() === "jml.kineticgain.com"],
   ["LICENSE = AGPL-3.0", /GNU AFFERO GENERAL PUBLIC LICENSE/.test(readFileSync(new URL("LICENSE", root), "utf8"))],
