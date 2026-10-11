@@ -38,7 +38,7 @@ Deployed **static demo**. The page is available at the live URL, but its connect
 - No backend. No database. No login. No telemetry.
 - Synthetic data is embedded in the HTML; the only script switches tabs.
 - The visible audit hashes are illustrative suffixes, not verifiable signatures.
-- A push to `main` triggers the Hostinger FTPS deployment workflow.
+- The Hostinger FTPS deployment workflow runs only when manually dispatched. A push to `main` does not publish this page; verify the live result after a deployment.
 
 ## Language posture
 
